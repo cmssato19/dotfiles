@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "###### tmp directory contents ######"
+ls ~/tmp/
+read -p  "What do you want back? > " file
+mv ~/tmp/$file .
+
+exit

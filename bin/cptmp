@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# == 1 ]; then
+  newfile=`basename $1`
+  cp $1 ~/tmp/$newfile
+elif [ $# == 2 ]; then
+  cp $1 ~/tmp/$2
+else
+  echo "Many or few arguments!!!"
+  exit 1
+fi
+exit 0

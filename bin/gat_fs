@@ -1,0 +1,66 @@
+#!/bin/bash
+#exepath:指定したpath
+#a_cont:指定したpathの中身
+#tfile:対象にしたいdirectoryのどれをコピーするのか
+#a_cont="/home/p27001/cryspy-w/Li2MgSiO4_RS/2-400/work/*"
+
+# check args
+exepath=$(pwd)
+if [ $# -eq 0 ]; then
+  a_cont="$(pwd)/*"
+  tfile="data/init_POSCARS"
+  rname="/,_POSCARS"
+elif [ $# -eq 1 ]; then
+  echo "This script requires at least 2 arguments."
+  echo "\$1:target file"
+  echo "\$2:file after move"
+  exit
+elif [ $# -eq 2 ]; then
+  a_cont="$(pwd)/*"
+  tfile=$1
+  rname=$2
+elif [ $# -eq 3 ]; then
+  a_cont="$(cd $1 && pwd)/*"
+  tfile=$2
+  rname=$3
+else
+  echo "This script has too much arguments."
+  exit
+fi
+# rname base
+rbname=(${rname//,/ })
+rbn=`echo $rname | grep -o -i ,| wc -l`
+#if [ ${#rbname[@]} -ne 2 ]; then
+if [ $rbn -ne 1 ]; then
+  echo "Value error"
+  echo "/aaa_,_bbb -> /aaa_name_bbb"
+  exit
+fi
+echo ${rbname[0]}
+echo ${rbname[1]}
+
+# check dirs
+dirary=()
+for contpath in $a_cont; do
+  if [ -d $contpath ] ; then
+    #echo ${contpath}
+    if [[ $contpath =~ .*[0-9]{3}[a-z]{3,}[0-9] ]];then   # 真偽判定に正規表現が使えるようになる
+      #echo "OK"
+      dirary+=("$contpath")
+    fi
+  fi
+done
+
+
+# get POSCARS
+gatdir="$exepath/POSCARS"
+if [ ! -d $gatdir ]; then
+  mkdir $gatdir
+fi
+echo "ディレクトリ一覧"
+for d in ${dirary[@]}; do
+  ID=$(basename $d)
+  cp $d/$tfile $gatdir${rbname[0]}$ID${rbname[1]}
+  #cd $d
+  #cat OUTCAR | sed -ne '/TOTAL-FORCE/,/total drift/p' -ne '/Iteration/p' > "$gatdir/$ID"
+done

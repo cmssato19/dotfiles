@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mv --backup=numbered --target-directory=${HOME}/.Trash cryspy.stat cryspy.out err log data lock_cryspy
+
+exit

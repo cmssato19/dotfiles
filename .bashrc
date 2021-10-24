@@ -7,10 +7,7 @@ fi
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
-export PATH=$PATH:/work/gp27/share/local/bin
-export PATH=$PATH:/home/p27001/bin/
-export PATH=/work/00/gp27/share/local/miniconda3/bin:$PATH
-
+export PATH=$PATH:/home/p27001/dotfiles/bin/
 
 # User specific aliases and functions
 alias rsh='exec -l $SHELL'

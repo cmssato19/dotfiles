@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "###### .Trash directory contents ######"
+ls ~/.Trash/
+read -p  "What do you want back? > " file
+mv ~/.Trash/$file .
+
+exit 0
