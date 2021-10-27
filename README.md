@@ -1,6 +1,6 @@
 # How to install
 <code/>
-lone https://github.com/username/dotfiles
+git clone https://github.com/cmssato19/dotfiles
 cd dotfiles
 ./install.sh
 </code>
