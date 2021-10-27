@@ -1,6 +1,6 @@
 # How to install
 <code/>
-clone https://github.com/username/dotfiles
+gti clone https://github.com/cmssato19/dotfiles
 cd dotfiles
 ./install.sh
 </code>
