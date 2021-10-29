@@ -2,9 +2,9 @@
 <code/>
 git clone https://github.com/cmssato19/dotfiles
 
-cd dotfiles  
+cd dotfiles
 
-./install.sh  
+./install.sh
 </code>
 
 # Contets
