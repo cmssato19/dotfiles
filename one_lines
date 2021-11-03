@@ -1,0 +1,17 @@
+# CrySPYで再計算する
+0=st2; s1=st21;mkdir ${s1}; cp ${s0}/CONTCAR ${s1}/POSCAR; cp ${s0}/INCAR ${s1} ; cp ${s0}/KPOINTS ${s1}; cp job_vasp ${s1}; cp POTCAR ${s1}
+
+# POSCARを再計算する際にディレクトリを準備する
+* base, sh, POSCARSがいる
+* POSCARSにはhoge_POSCARという名前が良い
+num=01_49; mkdir $num; cp -r base $num; cp -r sh $num; sed -e "s,1101_L6M5_RS,1101_L6M5_RS/${num}," sh/kp_num.sh >  ${num}/sh/kp_num.sh; sed -e "s,1101_L6M5_RS,1101_L6M5_RS/${num}," sh/cal-k.sh >  ${num}/sh/cal-k.sh; cp L6M5_1025_POSCARS/${num}_POSCAR ${num}/base; sed -e "s,L6M5RS,Re${num}_RS," base/job_vasp > ${num}/base/job_vasp; find ${num}/base -type d -exec cp L6M5_1025_POSCARS/${num}_POSCAR {}/POSCAR \;; find ${num}/base -type d -exec cp ${num}/base/job_vasp {} \;
+
+# ステージを更新し，最適化を実行
+## KPOINTSを更新
+find base -type d -exec cp base/KPOINTS {} \;
+## 1_amvを更新
+cp -r base/1_amv/ .; cd 1_amv ; qsub job_vasp; cd ../
+## 1_amvのCONTCARを2_latのPOSCARに更新し，実行
+cp 1_amv/CONTCAR base/2_lat/POSCAR; cp -r base/2_lat/ .; cd 2_lat; qsub job_vasp; cd ../
+## 2_latのCONTCARを3_preのPOSCARに更新し，実行
+cp 2_lat/CONTCAR base/3_pre/POSCAR ; cp -r base/3_pre/ .; cd 3_pre; qsub job_vasp; cd ../
