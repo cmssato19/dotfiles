@@ -78,8 +78,9 @@ cdls () {
 # --> それでマッチするものがなければ，小文字を大文字に変えつつ補完してみて
 # --> それでもマッチするものがなければ，大文字を小文字に変えるルールを追加（`+'）して補完してみよ
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
-
 zstyle ':completion:*' list-colors ''       # 補完に色をつける
+zstyle ':completion:*:default' menu select=2
+
 
 # setopt
 setopt correct      # コマンドのスペルを訂正
